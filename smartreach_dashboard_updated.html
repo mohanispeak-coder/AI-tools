@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SmartReach.io — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef0f8;color:#1a1a35;font-size:13px;padding:20px}
+.page{max-width:980px;margin:0 auto}
+.hdr{background:#1e1b4b;padding:14px 22px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.hdr-left{display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;background:#6366f1;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px}
+.brand{font-size:17px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.brand-sub{font-size:11px;color:#a5b4fc;margin-top:1px}
+.hdr-tags{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.htag{font-size:10px;font-weight:500;background:rgba(255,255,255,.1);color:#c7d2fe;border:1px solid rgba(255,255,255,.15);padding:4px 10px;border-radius:20px}
+.htag.cond{background:rgba(99,102,241,.25);color:#c7d2fe;border-color:#6366f1}
+.main{display:grid;grid-template-columns:220px 1fr 210px;gap:10px;margin-bottom:10px}
+.card{background:#fff;border-radius:12px;border:1px solid #dde0f0;overflow:hidden}
+.ch{padding:9px 14px;border-bottom:1px solid #eef0f8;display:flex;align-items:center;gap:6px}
+.ch-icon{font-size:14px}
+.ch-label{font-size:10px;font-weight:600;color:#6b6b9d;text-transform:uppercase;letter-spacing:.09em}
+.cb{padding:10px 14px}
+.gap-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #f4f4fc;font-size:11.5px;color:#4a4a6e;line-height:1.4}
+.gap-item:last-child{border-bottom:none}
+.gap-icon{font-size:13px;flex-shrink:0;margin-top:1px;color:#d97706}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.ft{display:flex;align-items:center;gap:5px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eef0f8}
+.ft-icon{font-size:12px;color:#6366f1}
+.ft-label{font-size:10px;font-weight:600;color:#6366f1;text-transform:uppercase;letter-spacing:.07em}
+.fi{display:flex;align-items:flex-start;gap:6px;font-size:11.5px;color:#4a4a6e;margin-bottom:5px;line-height:1.35}
+.tick{color:#16a34a;font-weight:700;flex-shrink:0;font-size:13px}
+.cross{color:#dc2626;font-weight:700;flex-shrink:0;font-size:13px}
+.plan-list{padding:4px 0}
+.plan-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid #f4f4fc}
+.plan-row:last-child{border-bottom:none}
+.plan-row.rec{background:#eef0ff;border-left:2px solid #6366f1}
+.plan-name{font-size:12px;color:#4a4a6e}
+.plan-price{font-size:13px;font-weight:600;color:#1a1a35}
+.plan-price.rec{color:#4338ca}
+.plan-price.warn{color:#d97706}
+.plan-price .per{font-size:10px;font-weight:400;color:#9ca3af}
+.note-item{display:flex;align-items:flex-start;gap:7px;padding:7px 0;border-bottom:1px solid #f4f4fc;font-size:11.5px;color:#4a4a6e;line-height:1.4}
+.note-item:last-child{border-bottom:none}
+.ndot{width:5px;height:5px;border-radius:50%;background:#6366f1;margin-top:5px;flex-shrink:0}
+.warn-row{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:7px 10px;font-size:11px;color:#78350f;margin-bottom:6px;line-height:1.4}
+.warn-row:last-child{margin-bottom:0}
+.proc{background:#fff;border-radius:12px;border:1px solid #dde0f0;padding:14px 18px}
+.proc-hd{font-size:10px;font-weight:600;color:#6b6b9d;text-transform:uppercase;letter-spacing:.09em;margin-bottom:14px}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+.step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px;position:relative}
+.step-ic{width:44px;height:44px;background:#eef0ff;border:1.5px solid #c7d2fe;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 7px;font-size:20px}
+.step-title{font-size:11px;font-weight:600;color:#1a1a35;margin-bottom:3px;line-height:1.3}
+.step-desc{font-size:10px;color:#6b6b9d;line-height:1.4}
+.arr{position:absolute;right:-8px;top:12px;font-size:16px;color:#c7d2fe}
+.footer{text-align:center;font-size:10px;color:#9ca3af;margin-top:14px}
+@media(max-width:700px){.main{grid-template-columns:1fr}.steps{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">in</div>
+    <div>
+      <div class="brand">SmartReach.io</div>
+      <div class="brand-sub">LinkedIn outreach and B2B prospecting automation &nbsp;·&nbsp; Lead generation outbound</div>
+    </div>
+  </div>
+  <div class="hdr-tags">
+    <span class="htag">9+ years</span>
+    <span class="htag">11,000+ customers</span>
+    <span class="htag">&lt;30 min setup</span>
+    <span class="htag cond">Conditional — if LinkedIn outbound is a core channel</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">🎯</span><span class="ch-label">Use case for 4D</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="gap-item"><span class="gap-icon">🏢</span>Reach retail brands, mall operators, and developers on LinkedIn</div>
+        <div class="gap-item"><span class="gap-icon">🔍</span>Identify and contact decision-makers before they find you</div>
+        <div class="gap-item"><span class="gap-icon">📧</span>Automate multi-step connection and follow-up sequences</div>
+        <div class="gap-item"><span class="gap-icon">🗄️</span>Enrich leads with verified email and phone from LinkedIn</div>
+        <div class="gap-item"><span class="gap-icon">📊</span>Track open rates, reply rates, and A/B test messages</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">⚠️</span><span class="ch-label">Key limitations</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="warn-row">Dedicated email domain required for outreach — separate setup</div>
+        <div class="warn-row">AI personalization uses credits — ₹1 per AI-generated message</div>
+        <div class="warn-row">Auto CRM sync available via workflow — manual trigger needed only outside workflow rules</div>
+        <div class="warn-row">No API to Power BI or Tableau for advanced reporting</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="feat-grid">
+      <div>
+        <div class="ft"><span class="ft-icon">🔗</span><span class="ft-label">LinkedIn prospecting</span></div>
+        <div class="fi"><span class="tick">✓</span>Extract leads from LinkedIn and Sales Navigator searches</div>
+        <div class="fi"><span class="tick">✓</span>Auto-enrich profiles with verified B2B email and phone</div>
+        <div class="fi"><span class="tick">✓</span>Bulk CSV upload with custom field mapping</div>
+        <div class="fi"><span class="tick">✓</span>Skip leads already contacted in past campaigns</div>
+        <div class="fi"><span class="tick">✓</span>Daily and weekly limits to prevent LinkedIn ban</div>
+        <div class="fi"><span class="tick">✓</span>Cloud-based — no browser extension risk</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">📨</span><span class="ft-label">Campaign automation</span></div>
+        <div class="fi"><span class="tick">✓</span>Multi-step sequences: view → connect → InMail → message</div>
+        <div class="fi"><span class="tick">✓</span>Personalized messages with dynamic tags and variables</div>
+        <div class="fi"><span class="tick">✓</span>Unified inbox — LinkedIn and email in one place</div>
+        <div class="fi"><span class="tick">✓</span>Sequence auto-pauses when prospect replies</div>
+        <div class="fi"><span class="tick">✓</span>A/B testing on message variants</div>
+        <div class="fi"><span class="tick">✓</span>Certain replies can be automated via workflow rules</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">🛡️</span><span class="ft-label">Account safety</span></div>
+        <div class="fi"><span class="tick">✓</span>AI message variation to avoid spam detection</div>
+        <div class="fi"><span class="tick">✓</span>Randomized delays to mimic human behavior</div>
+        <div class="fi"><span class="tick">✓</span>Daily limits configurable to avoid LinkedIn ban</div>
+        <div class="fi"><span class="tick">✓</span>Dedicated cloud IP — no local browser extension</div>
+        <div class="fi"><span class="cross">✗</span>No randomized delay between individual actions</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">📈</span><span class="ft-label">Reporting and CRM</span></div>
+        <div class="fi"><span class="tick">✓</span>Dashboard with acceptance, open, and reply rates</div>
+        <div class="fi"><span class="tick">✓</span>Campaign data exportable to Excel</div>
+        <div class="fi"><span class="tick">✓</span>Native CRM integration — HubSpot, Salesforce, Pipedrive</div>
+        <div class="fi"><span class="tick">✓</span>Historical campaign data extractable for strategy</div>
+        <div class="fi"><span class="tick">✓</span>Auto CRM status sync available via workflow configuration</div>
+        <div class="fi"><span class="cross">✗</span>No API to Power BI or Tableau</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">💳</span><span class="ch-label">Pricing</span></div>
+      <div class="plan-list">
+        <div class="plan-row">
+          <div class="plan-name">📧 Basic</div>
+          <div class="plan-price">₹3,683<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row rec">
+          <div class="plan-name">⭐ Plus</div>
+          <div class="plan-price rec">₹9,351<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">🏢 Pro</div>
+          <div class="plan-price">₹23,519<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">🤖 AI message</div>
+          <div class="plan-price warn">₹1<span class="per">/credit</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">📋</span><span class="ch-label">Key notes</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="note-item"><div class="ndot"></div><div>Setup under 30 minutes — cloud-based, no install needed</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Cost-effective vs Reply.io — better ROI for SMEs at same output</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Lead enrichment: email = 5 credits, phone = 30 credits</div></div>
+        <div class="note-item"><div class="ndot"></div><div>No setup cost, no hidden charges — subscription only</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Support via helpdesk — no dedicated SPOC on standard plans</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="proc">
+  <div class="proc-hd">→ Outbound process flow</div>
+  <div class="steps">
+    <div class="step"><div class="step-ic">🔗</div><div class="step-title">LinkedIn search and extract</div><div class="step-desc">Target profiles pulled from search or Sales Nav</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🗄️</div><div class="step-title">Lead enrichment</div><div class="step-desc">Email and phone verified via B2B database</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">📋</div><div class="step-title">Sequence build</div><div class="step-desc">Multi-step connect → InMail → follow-up</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">▶️</div><div class="step-title">Automated outreach</div><div class="step-desc">AI-varied messages sent within safe daily limits</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">💬</div><div class="step-title">Unified inbox reply</div><div class="step-desc">LinkedIn and email replies in one inbox</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">📊</div><div class="step-title">Analytics and CRM push</div><div class="step-desc">Open, reply, and conversion rates tracked</div></div>
+  </div>
+</div>
+
+<div class="footer">Prepared by iSpeak Corporate Services · 4D Retail Design Engagement</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Read AI — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef4f8;color:#0f172a;font-size:13px;padding:20px}
+.page{max-width:980px;margin:0 auto}
+.hdr{background:#0f172a;padding:14px 22px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.hdr-left{display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;background:#0ea5e9;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;font-weight:700;color:#fff}
+.brand{font-size:17px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.brand-sub{font-size:11px;color:#7dd3fc;margin-top:1px}
+.hdr-tags{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.htag{font-size:10px;font-weight:500;background:rgba(255,255,255,.1);color:#bae6fd;border:1px solid rgba(255,255,255,.15);padding:4px 10px;border-radius:20px}
+.htag.rec{background:#0ea5e9;color:#fff;border-color:#0ea5e9;font-weight:600}
+.main{display:grid;grid-template-columns:220px 1fr 210px;gap:10px;margin-bottom:10px}
+.card{background:#fff;border-radius:12px;border:1px solid #d1e8f5;overflow:hidden}
+.ch{padding:9px 14px;border-bottom:1px solid #eef4f8;display:flex;align-items:center;gap:6px}
+.ch-icon{font-size:14px}
+.ch-label{font-size:10px;font-weight:600;color:#5b8ca8;text-transform:uppercase;letter-spacing:.09em}
+.cb{padding:10px 14px}
+.gap-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #f0f7fc;font-size:11.5px;color:#334155;line-height:1.4}
+.gap-item:last-child{border-bottom:none}
+.gap-icon{font-size:13px;flex-shrink:0;margin-top:1px;color:#0ea5e9}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.ft{display:flex;align-items:center;gap:5px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eef4f8}
+.ft-icon{font-size:12px;color:#0ea5e9}
+.ft-label{font-size:10px;font-weight:600;color:#0ea5e9;text-transform:uppercase;letter-spacing:.07em}
+.fi{display:flex;align-items:flex-start;gap:6px;font-size:11.5px;color:#334155;margin-bottom:5px;line-height:1.35}
+.tick{color:#16a34a;font-weight:700;flex-shrink:0;font-size:13px}
+.cross{color:#dc2626;font-weight:700;flex-shrink:0;font-size:13px}
+.hi{color:#0ea5e9;font-weight:700}
+.plan-list{padding:4px 0}
+.plan-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid #f0f7fc}
+.plan-row:last-child{border-bottom:none}
+.plan-row.rec{background:#e0f2fe;border-left:2px solid #0ea5e9}
+.plan-name{font-size:12px;color:#334155}
+.plan-price{font-size:13px;font-weight:600;color:#0f172a}
+.plan-price.rec{color:#0284c7}
+.plan-price.free{color:#16a34a}
+.plan-price .per{font-size:10px;font-weight:400;color:#9ca3af}
+.note-item{display:flex;align-items:flex-start;gap:7px;padding:7px 0;border-bottom:1px solid #f0f7fc;font-size:11.5px;color:#334155;line-height:1.4}
+.note-item:last-child{border-bottom:none}
+.ndot{width:5px;height:5px;border-radius:50%;background:#0ea5e9;margin-top:5px;flex-shrink:0}
+.warn-row{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:7px 10px;font-size:11px;color:#78350f;margin-bottom:6px;line-height:1.4}
+.warn-row:last-child{margin-bottom:0}
+.vs-table{width:100%;border-collapse:collapse;font-size:11px}
+.vs-table th{text-align:left;font-size:9.5px;font-weight:600;color:#5b8ca8;text-transform:uppercase;letter-spacing:.07em;padding:5px 8px;border-bottom:1px solid #d1e8f5;background:#f0f7fc}
+.vs-table th:not(:first-child){text-align:center}
+.vs-table td{padding:6px 8px;border-bottom:1px solid #f0f7fc;color:#334155;font-size:11px}
+.vs-table tr:last-child td{border-bottom:none}
+.vs-table td:not(:first-child){text-align:center}
+.proc{background:#fff;border-radius:12px;border:1px solid #d1e8f5;padding:14px 18px}
+.proc-hd{font-size:10px;font-weight:600;color:#5b8ca8;text-transform:uppercase;letter-spacing:.09em;margin-bottom:14px}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+.step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px;position:relative}
+.step-ic{width:44px;height:44px;background:#e0f2fe;border:1.5px solid #7dd3fc;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 7px;font-size:20px}
+.step-title{font-size:11px;font-weight:600;color:#0f172a;margin-bottom:3px;line-height:1.3}
+.step-desc{font-size:10px;color:#5b8ca8;line-height:1.4}
+.arr{position:absolute;right:-8px;top:12px;font-size:16px;color:#7dd3fc}
+.footer{text-align:center;font-size:10px;color:#9ca3af;margin-top:14px}
+@media(max-width:700px){.main{grid-template-columns:1fr}.steps{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">R</div>
+    <div>
+      <div class="brand">Read AI</div>
+      <div class="brand-sub">AI meeting note-taker, transcription and summary tool &nbsp;·&nbsp; Zoom, Meet, Teams</div>
+    </div>
+  </div>
+  <div class="hdr-tags">
+    <span class="htag">20+ languages</span>
+    <span class="htag">Auto + manual recording</span>
+    <span class="htag">Audio and video</span>
+    <span class="htag">Offline meetings</span>
+    <span class="htag rec">✓ Recommended</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">🎯</span><span class="ch-label">Use case for 4D</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="gap-item"><span class="gap-icon">👥</span>Auto-capture all client discovery and pitch meeting notes</div>
+        <div class="gap-item"><span class="gap-icon">✅</span>Generate action items from every sales or internal call</div>
+        <div class="gap-item"><span class="gap-icon">🔍</span>Search across all past meeting transcripts by topic</div>
+        <div class="gap-item"><span class="gap-icon">📍</span>Capture offline site visits and in-person client meetings</div>
+        <div class="gap-item"><span class="gap-icon">📊</span>Track engagement scores to see how meetings are going</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">⚠️</span><span class="ch-label">Key limitations</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="warn-row">Transcription accuracy not publicly benchmarked — depends on audio quality</div>
+        <div class="warn-row">Manual permission required to enable auto-recording per session</div>
+        <div class="warn-row">CRM integration available but may need manual workflow setup</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="feat-grid">
+      <div>
+        <div class="ft"><span class="ft-icon">🎙️</span><span class="ft-label">Recording</span></div>
+        <div class="fi"><span class="tick">✓</span>Automatic recording (permission required per session)</div>
+        <div class="fi"><span class="tick">✓</span>Manual start and stop control</div>
+        <div class="fi"><span class="tick">✓</span>Records both audio and video</div>
+        <div class="fi"><span class="tick">✓</span>Offline and in-person meetings supported</div>
+        <div class="fi"><span class="tick">✓</span>Works on Zoom, Google Meet, and MS Teams</div>
+        <div class="fi"><span class="tick">✓</span>20+ languages supported</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">🧠</span><span class="ft-label">AI summaries</span></div>
+        <div class="fi"><span class="tick">✓</span>Auto-generates meeting summary after call ends</div>
+        <div class="fi"><span class="tick">✓</span>Key points and decisions extracted automatically</div>
+        <div class="fi"><span class="tick">✓</span>Action items assigned per speaker</div>
+        <div class="fi"><span class="tick">✓</span>Transcripts and summaries fully editable</div>
+        <div class="fi"><span class="tick">✓</span>Highlights and short clips generated</div>
+        <div class="fi"><span class="tick">✓</span>Handles Indian accents and multi-speaker calls</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">🔍</span><span class="ft-label">Search and insights</span></div>
+        <div class="fi"><span class="tick">✓</span>Search by keyword across all meeting transcripts</div>
+        <div class="fi"><span class="tick">✓</span>Search by topic or specific speaker</div>
+        <div class="fi"><span class="tick">✓</span>Speaker identification across conversations</div>
+        <div class="fi"><span class="tick">✓</span>Meeting engagement and sentiment scoring</div>
+        <div class="fi"><span class="tick">✓</span>Talk-time and participation analytics</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">🔌</span><span class="ft-label">Integration and sharing</span></div>
+        <div class="fi"><span class="tick">✓</span>Slack, Notion, HubSpot, Salesforce integrations</div>
+        <div class="fi"><span class="tick">✓</span>Auto-share summaries via email post-meeting</div>
+        <div class="fi"><span class="tick">✓</span>Export transcripts as PDF or text</div>
+        <div class="fi"><span class="tick">✓</span>Calendar sync — auto-joins scheduled meetings</div>
+        <div class="fi"><span class="tick">✓</span>Team workspace with shared meeting library</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">💳</span><span class="ch-label">Pricing</span></div>
+      <div class="plan-list">
+        <div class="plan-row">
+          <div class="plan-name">🎁 Free</div>
+          <div class="plan-price free">₹0<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row rec">
+          <div class="plan-name">⭐ Pro</div>
+          <div class="plan-price rec">₹1,871<span class="per">/user/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">🏢 Business</div>
+          <div class="plan-price">₹2,818<span class="per">/user/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">🔧 Setup cost</div>
+          <div class="plan-price free">Nil</div>
+        </div>
+        <div style="padding:7px 14px;font-size:10px;color:#9ca3af;border-top:1px solid #f0f7fc">@ $1 = ₹94.73 (as of Jul 2026)</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">⚖️</span><span class="ch-label">vs other tools</span></div>
+      <div style="padding:0">
+        <table class="vs-table">
+          <thead>
+            <tr><th>Feature</th><th>Read AI</th><th>Fireflies</th><th>Fathom</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Auto recording</td><td class="tick">✓</td><td class="tick">✓</td><td class="tick">✓</td></tr>
+            <tr><td>Audio + video</td><td class="tick">✓</td><td class="tick">✓</td><td class="tick">✓</td></tr>
+            <tr><td>Offline meetings</td><td class="hi">✓</td><td class="tick">✓</td><td class="cross">✗</td></tr>
+            <tr><td>Transcription %</td><td style="color:#9ca3af">—</td><td class="hi">95%</td><td>90–95%</td></tr>
+            <tr><td>Indian accents</td><td class="tick">✓</td><td>Good</td><td>Clear audio only</td></tr>
+            <tr><td>Highlights/clips</td><td class="tick">✓</td><td class="tick">✓</td><td class="hi">Strong</td></tr>
+            <tr><td>Engagement score</td><td class="hi">✓</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="proc">
+  <div class="proc-hd">→ How Read AI works in a meeting</div>
+  <div class="steps">
+    <div class="step"><div class="step-ic">📅</div><div class="step-title">Calendar sync</div><div class="step-desc">Auto-joins Zoom, Meet, or Teams from calendar</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🎙️</div><div class="step-title">Live transcription</div><div class="step-desc">Records audio and video, identifies each speaker</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🧠</div><div class="step-title">AI summary generated</div><div class="step-desc">Summary, key points, and action items auto-created</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">📧</div><div class="step-title">Auto-share to team</div><div class="step-desc">Notes emailed to all participants after the call</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🔍</div><div class="step-title">Search and retrieve</div><div class="step-desc">Find any keyword or topic across all past meetings</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🔌</div><div class="step-title">Push to CRM or Slack</div><div class="step-desc">Summaries sync to HubSpot, Notion, and Salesforce</div></div>
+  </div>
+</div>
+
+<div class="footer">Prepared by iSpeak Corporate Services · 4D Retail Design Engagement</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Runo AI CRM — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f1f4f0;color:#1a2e1a;font-size:13px;padding:20px}
+.page{max-width:980px;margin:0 auto}
+.hdr{background:#1a3a2a;padding:14px 22px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.hdr-left{display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;background:#16a34a;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px}
+.brand{font-size:17px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.brand-sub{font-size:11px;color:#86efac;margin-top:1px}
+.hdr-tags{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.htag{font-size:10px;font-weight:500;background:rgba(255,255,255,.1);color:#bbf7d0;border:1px solid rgba(255,255,255,.15);padding:4px 10px;border-radius:20px}
+.htag.rec{background:#16a34a;color:#052e16;border-color:#16a34a;font-weight:600}
+.main{display:grid;grid-template-columns:220px 1fr 210px;gap:10px;margin-bottom:10px}
+.card{background:#fff;border-radius:12px;border:1px solid #e4ece4;overflow:hidden}
+.ch{padding:9px 14px;border-bottom:1px solid #f0f5f0;display:flex;align-items:center;gap:6px}
+.ch-label{font-size:10px;font-weight:600;color:#6b8a6b;text-transform:uppercase;letter-spacing:.09em}
+.ch-icon{font-size:14px}
+.cb{padding:10px 14px}
+.gap-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #f5faf5;font-size:11.5px;color:#4a5e4a;line-height:1.4}
+.gap-item:last-child{border-bottom:none}
+.gap-icon{font-size:13px;flex-shrink:0;margin-top:1px;color:#d97706}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.fb{}
+.ft{display:flex;align-items:center;gap:5px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #f0f5f0}
+.ft-icon{font-size:12px;color:#16a34a}
+.ft-label{font-size:10px;font-weight:600;color:#16a34a;text-transform:uppercase;letter-spacing:.07em}
+.fi{display:flex;align-items:flex-start;gap:6px;font-size:11.5px;color:#4a5e4a;margin-bottom:5px;line-height:1.35}
+.tick{color:#16a34a;font-weight:700;flex-shrink:0;font-size:13px}
+.cross{color:#dc2626;font-weight:700;flex-shrink:0;font-size:13px}
+.plan-list{padding:4px 0}
+.plan-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid #f5faf5}
+.plan-row:last-child{border-bottom:none}
+.plan-row.rec{background:#f0fdf4;border-left:2px solid #16a34a}
+.plan-name{font-size:12px;color:#4a5e4a}
+.plan-price{font-size:13px;font-weight:600;color:#1a2e1a}
+.plan-price.rec{color:#065f46}
+.plan-price .per{font-size:10px;font-weight:400;color:#9ca3af}
+.note-item{display:flex;align-items:flex-start;gap:7px;padding:7px 0;border-bottom:1px solid #f5faf5;font-size:11.5px;color:#4a5e4a;line-height:1.4}
+.note-item:last-child{border-bottom:none}
+.ndot{width:5px;height:5px;border-radius:50%;background:#16a34a;margin-top:5px;flex-shrink:0}
+.warn-row{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:7px 10px;font-size:11px;color:#78350f;margin-bottom:6px;line-height:1.4}
+.warn-row:last-child{margin-bottom:0}
+.proc{background:#fff;border-radius:12px;border:1px solid #e4ece4;padding:14px 18px}
+.proc-hd{font-size:10px;font-weight:600;color:#6b8a6b;text-transform:uppercase;letter-spacing:.09em;margin-bottom:14px;display:flex;align-items:center;gap:5px}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+.step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px;position:relative}
+.step-ic{width:44px;height:44px;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 7px;font-size:20px}
+.step-title{font-size:11px;font-weight:600;color:#1a2e1a;margin-bottom:3px;line-height:1.3}
+.step-desc{font-size:10px;color:#6b8a6b;line-height:1.4}
+.arr{position:absolute;right:-8px;top:12px;font-size:16px;color:#bbf7d0;font-weight:300}
+.footer{text-align:center;font-size:10px;color:#9ca3af;margin-top:14px}
+@media(max-width:700px){
+  .main{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">📞</div>
+    <div>
+      <div class="brand">Runo AI CRM</div>
+      <div class="brand-sub">SIM-based Call CRM &nbsp;·&nbsp; Mobile-first lead management</div>
+    </div>
+  </div>
+  <div class="hdr-tags">
+    <span class="htag">7+ years</span>
+    <span class="htag">3,500+ clients</span>
+    <span class="htag">10-day trial</span>
+    <span class="htag rec">✓ Recommended</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">⚠️</span><span class="ch-label">Gaps addressed</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="gap-item"><span class="gap-icon">📵</span>No call logging or recording system</div>
+        <div class="gap-item"><span class="gap-icon">👤</span>Leads not tracked after first contact</div>
+        <div class="gap-item"><span class="gap-icon">📍</span>Field team activity not visible</div>
+        <div class="gap-item"><span class="gap-icon">📱</span>No mobile CRM for sales agents</div>
+        <div class="gap-item"><span class="gap-icon">📊</span>No pipeline or conversion reports</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">ℹ️</span><span class="ch-label">Key limitations</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="warn-row">Lead source tracking needs open API — dev required from 4D's side</div>
+        <div class="warn-row">Call recording on Android only — not available on iOS</div>
+        <div class="warn-row">WhatsApp API is an add-on — extra charges apply</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="feat-grid">
+      <div class="fb">
+        <div class="ft"><span class="ft-icon">👥</span><span class="ft-label">Lead management</span></div>
+        <div class="fi"><span class="tick">✓</span>Lead capture and source tracking</div>
+        <div class="fi"><span class="tick">✓</span>Duplicate lead management</div>
+        <div class="fi"><span class="tick">✓</span>Custom pipeline management</div>
+        <div class="fi"><span class="tick">✓</span>Lead assignment and routing</div>
+        <div class="fi"><span class="tick">✓</span>Activity timeline per lead</div>
+        <div class="fi"><span class="tick">✓</span>Bulk lead import (up to 20K)</div>
+      </div>
+      <div class="fb">
+        <div class="ft"><span class="ft-icon">📞</span><span class="ft-label">Call management</span></div>
+        <div class="fi"><span class="tick">✓</span>SIM-based call CRM</div>
+        <div class="fi"><span class="tick">✓</span>Auto call logging</div>
+        <div class="fi"><span class="tick">✓</span>Call recording (Android only)</div>
+        <div class="fi"><span class="tick">✓</span>AI call summaries</div>
+        <div class="fi"><span class="tick">✓</span>Missed call lead capture</div>
+        <div class="fi"><span class="tick">✓</span>Call notes and interaction history</div>
+      </div>
+      <div class="fb">
+        <div class="ft"><span class="ft-icon">💬</span><span class="ft-label">WhatsApp and mobile</span></div>
+        <div class="fi"><span class="tick">✓</span>WhatsApp API integration (add-on)</div>
+        <div class="fi"><span class="tick">✓</span>Multi-number WA management</div>
+        <div class="fi"><span class="tick">✓</span>WA broadcast and campaigns</div>
+        <div class="fi"><span class="tick">✓</span>Mobile CRM (iOS and Android)</div>
+        <div class="fi"><span class="tick">✓</span>Real-time notifications</div>
+        <div class="fi"><span class="cross">✗</span>Offline mode not available</div>
+      </div>
+      <div class="fb">
+        <div class="ft"><span class="ft-icon">🤖</span><span class="ft-label">AI and automation</span></div>
+        <div class="fi"><span class="tick">✓</span>AI call summaries</div>
+        <div class="fi"><span class="tick">✓</span>AI lead insights and recommendations</div>
+        <div class="fi"><span class="tick">✓</span>Follow-up automation</div>
+        <div class="fi"><span class="tick">✓</span>Lead stage automation</div>
+        <div class="fi"><span class="tick">✓</span>Escalation management</div>
+        <div class="fi"><span class="tick">✓</span>Missed lead automation</div>
+        <div class="fi"><span class="tick">✓</span>Sentiment analysis for calls</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">💳</span><span class="ch-label">Pricing</span></div>
+      <div class="plan-list">
+        <div class="plan-row">
+          <div class="plan-name">3 months</div>
+          <div class="plan-price">₹899<span class="per">/user/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">6 months</div>
+          <div class="plan-price">₹699<span class="per">/user/mo</span></div>
+        </div>
+        <div class="plan-row rec">
+          <div class="plan-name">⭐ 12 months + AI free</div>
+          <div class="plan-price rec">₹599<span class="per">/user/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">10-day trial</div>
+          <div class="plan-price" style="color:#16a34a">Free<span class="per"> (₹1/call AI summary)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">📋</span><span class="ch-label">Demo notes</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="note-item"><div class="ndot"></div><div>30-minute setup — fastest onboarding among evaluated tools</div></div>
+        <div class="note-item"><div class="ndot"></div><div>AI call summary charged at ₹1 per call (not free)</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Integrates with Salesforce, HubSpot, Zoho</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Dedicated account manager and free training included</div></div>
+        <div class="note-item"><div class="ndot"></div><div>No setup cost — zero one-time charges</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="proc">
+  <div class="proc-hd">→ Process stages helped</div>
+  <div class="steps">
+    <div class="step"><div class="step-ic">📲</div><div class="step-title">Inbound call / lead</div><div class="step-desc">SIM call or WA lead auto-captured</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">👤</div><div class="step-title">Auto lead creation</div><div class="step-desc">Lead logged with source and agent</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🔀</div><div class="step-title">Assignment and routing</div><div class="step-desc">Auto-routed to right sales rep</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">💬</div><div class="step-title">Follow-up automation</div><div class="step-desc">WA messages and reminders triggered</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🧠</div><div class="step-title">AI call summary</div><div class="step-desc">Call recorded and summarised by AI</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">📊</div><div class="step-title">Pipeline reporting</div><div class="step-desc">Conversion and team performance tracked</div></div>
+  </div>
+</div>
+
+<div class="footer">Prepared by iSpeak Corporate Services · 4D Retail Design Engagement</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AiSensy — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#e8f5ec;color:#0a1f12;font-size:13px;padding:20px}
+.page{max-width:980px;margin:0 auto}
+.hdr{background:#052e16;padding:14px 22px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.hdr-left{display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;background:#25D366;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo svg{width:22px;height:22px;fill:#fff}
+.brand{font-size:17px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.brand-sub{font-size:11px;color:#86efac;margin-top:1px}
+.hdr-tags{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.htag{font-size:10px;font-weight:500;background:rgba(255,255,255,.1);color:#bbf7d0;border:1px solid rgba(255,255,255,.15);padding:4px 10px;border-radius:20px}
+.htag.rec{background:#25D366;color:#052e16;border-color:#25D366;font-weight:700}
+.main{display:grid;grid-template-columns:220px 1fr 210px;gap:10px;margin-bottom:10px}
+.card{background:#fff;border-radius:12px;border:1px solid #c8e6c9;overflow:hidden}
+.ch{padding:9px 14px;border-bottom:1px solid #e8f5ec;display:flex;align-items:center;gap:6px}
+.ch-icon{font-size:14px}
+.ch-label{font-size:10px;font-weight:600;color:#2e7d32;text-transform:uppercase;letter-spacing:.09em}
+.cb{padding:10px 14px}
+.use-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #f1f8f1;font-size:11.5px;color:#1b3a1f;line-height:1.4}
+.use-item:last-child{border-bottom:none}
+.use-icon{font-size:13px;flex-shrink:0;margin-top:1px;color:#25D366}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.ft{display:flex;align-items:center;gap:5px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e8f5ec}
+.ft-icon{font-size:12px;color:#25D366}
+.ft-label{font-size:10px;font-weight:600;color:#1a6b2e;text-transform:uppercase;letter-spacing:.07em}
+.fi{display:flex;align-items:flex-start;gap:6px;font-size:11.5px;color:#2d4a32;margin-bottom:5px;line-height:1.35}
+.tick{color:#16a34a;font-weight:700;flex-shrink:0;font-size:13px}
+.cross{color:#dc2626;font-weight:700;flex-shrink:0;font-size:13px}
+.adv{font-size:9px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;flex-shrink:0;margin-top:1px}
+.plan-list{padding:4px 0}
+.plan-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid #f1f8f1}
+.plan-row:last-child{border-bottom:none}
+.plan-row.rec{background:#f0fdf4;border-left:2px solid #25D366}
+.plan-name{font-size:12px;color:#2d4a32}
+.plan-price{font-size:13px;font-weight:600;color:#0a1f12}
+.plan-price.rec{color:#166534}
+.plan-price.free{color:#16a34a}
+.plan-price .per{font-size:10px;font-weight:400;color:#9ca3af}
+.note-item{display:flex;align-items:flex-start;gap:7px;padding:7px 0;border-bottom:1px solid #f1f8f1;font-size:11.5px;color:#2d4a32;line-height:1.4}
+.note-item:last-child{border-bottom:none}
+.ndot{width:5px;height:5px;border-radius:50%;background:#25D366;margin-top:5px;flex-shrink:0}
+.warn-row{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:7px 10px;font-size:11px;color:#78350f;margin-bottom:6px;line-height:1.4}
+.warn-row:last-child{margin-bottom:0}
+.proc{background:#fff;border-radius:12px;border:1px solid #c8e6c9;padding:14px 18px}
+.proc-hd{font-size:10px;font-weight:600;color:#2e7d32;text-transform:uppercase;letter-spacing:.09em;margin-bottom:14px}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+.step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px;position:relative}
+.step-ic{width:44px;height:44px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 7px;font-size:20px}
+.step-title{font-size:11px;font-weight:600;color:#0a1f12;margin-bottom:3px;line-height:1.3}
+.step-desc{font-size:10px;color:#4a7c52;line-height:1.4}
+.arr{position:absolute;right:-8px;top:12px;font-size:16px;color:#86efac}
+.footer{text-align:center;font-size:10px;color:#9ca3af;margin-top:14px}
+@media(max-width:700px){.main{grid-template-columns:1fr}.steps{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">
+      <svg viewBox="0 0 32 32"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.49.65 4.83 1.78 6.86L2 30l7.36-1.74A14 14 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm0 2c6.63 0 12 5.37 12 12S22.63 28 16 28c-2.15 0-4.17-.57-5.92-1.56L9.5 26l-4.12.98 1-3.92-.64-.98A12 12 0 014 16C4 9.37 9.37 4 16 4zm-3.9 6.5c-.24 0-.63.09-.96.44-.33.35-1.26 1.23-1.26 3s1.29 3.48 1.47 3.72c.18.24 2.52 3.84 6.12 5.38.86.37 1.52.59 2.04.76.86.27 1.64.23 2.26.14.69-.1 2.12-.87 2.42-1.71.3-.84.3-1.56.21-1.71-.09-.15-.33-.24-.69-.42-.36-.18-2.12-1.05-2.45-1.17-.33-.12-.57-.18-.81.18-.24.36-.93 1.17-1.14 1.41-.21.24-.42.27-.78.09-.36-.18-1.52-.56-2.9-1.79-1.07-.96-1.8-2.14-2.01-2.5-.21-.36-.02-.55.16-.73.16-.16.36-.42.54-.63.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.63-.09-.18-.81-1.95-1.11-2.67-.3-.72-.6-.6-.81-.6z"/></svg>
+    </div>
+    <div>
+      <div class="brand">AiSensy</div>
+      <div class="brand-sub">WhatsApp Business Automation Platform &nbsp;·&nbsp; Marketing, Campaigns and Automation</div>
+    </div>
+  </div>
+  <div class="hdr-tags">
+    <span class="htag">5+ years</span>
+    <span class="htag">1,00,000+ customers</span>
+    <span class="htag">59+ countries</span>
+    <span class="htag rec">✓ Highly Recommended</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">🎯</span><span class="ch-label">Gaps addressed</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="use-item"><span class="use-icon">📵</span>No 24/7 automated lead capture on WhatsApp</div>
+        <div class="use-item"><span class="use-icon">📢</span>No bulk outreach or follow-up automation</div>
+        <div class="use-item"><span class="use-icon">⚡</span>Competitors responding instantly — no auto-reply</div>
+        <div class="use-item"><span class="use-icon">📉</span>High-intent leads dropping off without engagement</div>
+        <div class="use-item"><span class="use-icon">📊</span>No campaign analytics or broadcast tracking</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">⚠️</span><span class="ch-label">Key limitations</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="warn-row">Single WhatsApp number only — no multi-department routing</div>
+        <div class="warn-row">Leads don't auto-push to CRM — developer needed for custom integration</div>
+        <div class="warn-row">No auto-categorization of enquiry type (client, vendor, HR)</div>
+        <div class="warn-row">No auto follow-up on cold or inactive leads</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="feat-grid">
+      <div>
+        <div class="ft"><span class="ft-icon">💬</span><span class="ft-label">WhatsApp business</span></div>
+        <div class="fi"><span class="tick">✓</span>Shared team inbox</div>
+        <div class="fi"><span class="tick">✓</span>Lead capture and management</div>
+        <div class="fi"><span class="tick">✓</span>Auto lead assignment</div>
+        <div class="fi"><span class="tick">✓</span>Automated replies and FAQs</div>
+        <div class="fi"><span class="tick">✓</span>Follow-up workflows</div>
+        <div class="fi"><span class="tick">✓</span>Conversation history</div>
+        <div class="fi"><span class="tick">✓</span>Multi-agent access</div>
+        <div class="fi"><span class="tick">✓</span>Green tick (verified badge) support</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">📣</span><span class="ft-label">Marketing and campaigns</span></div>
+        <div class="fi"><span class="tick">✓</span>Bulk broadcast campaigns</div>
+        <div class="fi"><span class="tick">✓</span>Contact segmentation</div>
+        <div class="fi"><span class="tick">✓</span>Campaign scheduling</div>
+        <div class="fi"><span class="tick">✓</span>Campaign analytics (delivery, open, response)</div>
+        <div class="fi"><span class="tick">✓</span>Click-to-WhatsApp ads</div>
+        <div class="fi"><span class="tick">✓</span>Template messages (35+ languages)</div>
+        <div class="fi"><span class="tick">✓</span>Marketing template: ₹1.09/msg</div>
+        <div class="fi"><span class="tick">✓</span>Utility template: ₹0.148/msg</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">⚙️</span><span class="ft-label">Automation</span></div>
+        <div class="fi"><span class="adv">ADV</span>Workflow automation</div>
+        <div class="fi"><span class="tick">✓</span>AI chatbot — flow-based and AI-trained</div>
+        <div class="fi"><span class="tick">✓</span>Customer journey automation</div>
+        <div class="fi"><span class="tick">✓</span>Canned replies (slash command templates)</div>
+        <div class="fi"><span class="tick">✓</span>No-code WhatsApp chatbot (₹2,500/mo add-on)</div>
+        <div class="fi"><span class="cross">✗</span>Auto follow-up on inactive leads</div>
+        <div class="fi"><span class="cross">✗</span>Auto-categorize enquiry type</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">🔗</span><span class="ft-label">CRM and integrations</span></div>
+        <div class="fi"><span class="tick">✓</span>CRM integration (Odoo, HubSpot etc.)</div>
+        <div class="fi"><span class="tick">✓</span>Website chat widget</div>
+        <div class="fi"><span class="tick">✓</span>API and webhook support</div>
+        <div class="fi"><span class="tick">✓</span>PayU and WhatsApp Pay integration</div>
+        <div class="fi"><span class="tick">✓</span>Free Sales CRM with any paid plan</div>
+        <div class="fi"><span class="tick">✓</span>Dashboard and reports</div>
+        <div class="fi"><span class="tick">✓</span>Export reports</div>
+        <div class="fi"><span class="cross">✗</span>Leads auto-created in CRM (dev needed)</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">💳</span><span class="ch-label">Pricing</span></div>
+      <div class="plan-list">
+        <div class="plan-row">
+          <div class="plan-name">🎁 Free forever</div>
+          <div class="plan-price free">₹0<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">Basic</div>
+          <div class="plan-price">₹1,500<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row rec">
+          <div class="plan-name">⭐ Pro (recommended)</div>
+          <div class="plan-price rec">₹3,200<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">Pro — annual</div>
+          <div class="plan-price">₹2,880<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">Enterprise</div>
+          <div class="plan-price" style="color:#6b7280">Custom</div>
+        </div>
+      </div>
+      <div style="padding:7px 14px;font-size:10px;color:#9ca3af;border-top:1px solid #f1f8f1">+ Meta WhatsApp conversation charges apply separately &nbsp;·&nbsp; AI chatbot: 100 msgs/day free, ₹0.50/msg after</div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">📋</span><span class="ch-label">Demo notes</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="note-item"><div class="ndot"></div><div>Demo completed: 15 Jun, 4 PM</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Free Sales CRM included with any paid WhatsApp plan</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Inbound replies within 24 hrs — no charge deducted</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Outbound: ₹1 deducted per initiated conversation</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Virtual number add-on available at ₹2,000/mo</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Clients: PhysicsWallah, Adani, Wipro — 59+ countries</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="proc">
+  <div class="proc-hd">→ Process stages helped</div>
+  <div class="steps">
+    <div class="step"><div class="step-ic">🌐</div><div class="step-title">Web / WhatsApp inquiry</div><div class="step-desc">Lead arrives via web widget or WA message</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">💬</div><div class="step-title">Auto acknowledgement</div><div class="step-desc">Instant thank-you or welcome message sent</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🤖</div><div class="step-title">Lead capture and qualify</div><div class="step-desc">AI chatbot collects and qualifies info</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">👥</div><div class="step-title">Team assignment</div><div class="step-desc">Auto-routed to right sales agent</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">📅</div><div class="step-title">Follow-up and booking</div><div class="step-desc">Automated follow-ups and consultation booking</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">📊</div><div class="step-title">CRM sync and reporting</div><div class="step-desc">Data logged, campaigns tracked and reported</div></div>
+  </div>
+</div>
+
+<div class="footer">Prepared by iSpeak Corporate Services · 4D Retail Design Engagement · June 2025</div>
+</div>
+</body>
+</html>

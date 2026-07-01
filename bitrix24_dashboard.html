@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Bitrix24 — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#eef1f8;color:#1a2034;font-size:13px;padding:20px}
+.page{max-width:980px;margin:0 auto}
+.hdr{background:#1a2744;padding:14px 22px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.hdr-left{display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;background:#3b82f6;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px}
+.brand{font-size:17px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.brand-sub{font-size:11px;color:#93c5fd;margin-top:1px}
+.hdr-tags{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.htag{font-size:10px;font-weight:500;background:rgba(255,255,255,.1);color:#bfdbfe;border:1px solid rgba(255,255,255,.15);padding:4px 10px;border-radius:20px}
+.htag.rec{background:#3b82f6;color:#eff6ff;border-color:#3b82f6;font-weight:600}
+.main{display:grid;grid-template-columns:220px 1fr 210px;gap:10px;margin-bottom:10px}
+.card{background:#fff;border-radius:12px;border:1px solid #dde4f0;overflow:hidden}
+.ch{padding:9px 14px;border-bottom:1px solid #eef1f8;display:flex;align-items:center;gap:6px}
+.ch-icon{font-size:14px}
+.ch-label{font-size:10px;font-weight:600;color:#6b7aad;text-transform:uppercase;letter-spacing:.09em}
+.cb{padding:10px 14px}
+.gap-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #f4f6fc;font-size:11.5px;color:#4a5280;line-height:1.4}
+.gap-item:last-child{border-bottom:none}
+.gap-icon{font-size:13px;flex-shrink:0;margin-top:1px;color:#d97706}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.ft{display:flex;align-items:center;gap:5px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eef1f8}
+.ft-icon{font-size:12px;color:#3b82f6}
+.ft-label{font-size:10px;font-weight:600;color:#3b82f6;text-transform:uppercase;letter-spacing:.07em}
+.fi{display:flex;align-items:flex-start;gap:6px;font-size:11.5px;color:#4a5280;margin-bottom:5px;line-height:1.35}
+.tick{color:#16a34a;font-weight:700;flex-shrink:0;font-size:13px}
+.cross{color:#dc2626;font-weight:700;flex-shrink:0;font-size:13px}
+.plan-list{padding:4px 0}
+.plan-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid #f4f6fc}
+.plan-row:last-child{border-bottom:none}
+.plan-row.rec{background:#eff6ff;border-left:2px solid #3b82f6}
+.plan-name{font-size:12px;color:#4a5280}
+.plan-price{font-size:13px;font-weight:600;color:#1a2034}
+.plan-price.rec{color:#1d4ed8}
+.plan-price.warn{color:#d97706}
+.plan-price .per{font-size:10px;font-weight:400;color:#9ca3af}
+.note-item{display:flex;align-items:flex-start;gap:7px;padding:7px 0;border-bottom:1px solid #f4f6fc;font-size:11.5px;color:#4a5280;line-height:1.4}
+.note-item:last-child{border-bottom:none}
+.ndot{width:5px;height:5px;border-radius:50%;background:#3b82f6;margin-top:5px;flex-shrink:0}
+.warn-row{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:7px 10px;font-size:11px;color:#78350f;margin-bottom:6px;line-height:1.4}
+.warn-row:last-child{margin-bottom:0}
+.proc{background:#fff;border-radius:12px;border:1px solid #dde4f0;padding:14px 18px}
+.proc-hd{font-size:10px;font-weight:600;color:#6b7aad;text-transform:uppercase;letter-spacing:.09em;margin-bottom:14px}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+.step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px;position:relative}
+.step-ic{width:44px;height:44px;background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 7px;font-size:20px}
+.step-title{font-size:11px;font-weight:600;color:#1a2034;margin-bottom:3px;line-height:1.3}
+.step-desc{font-size:10px;color:#6b7aad;line-height:1.4}
+.arr{position:absolute;right:-8px;top:12px;font-size:16px;color:#bfdbfe}
+.footer{text-align:center;font-size:10px;color:#9ca3af;margin-top:14px}
+@media(max-width:700px){.main{grid-template-columns:1fr}.steps{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">⊞</div>
+    <div>
+      <div class="brand">Bitrix24</div>
+      <div class="brand-sub">All-in-one CRM, HRMS and Project Management &nbsp;·&nbsp; Feature-based pricing</div>
+    </div>
+  </div>
+  <div class="hdr-tags">
+    <span class="htag">13+ years</span>
+    <span class="htag">15M+ orgs</span>
+    <span class="htag">2–3 day setup</span>
+    <span class="htag">Free trial</span>
+    <span class="htag rec">✓ Recommended</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">⚠️</span><span class="ch-label">Gaps addressed</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="gap-item"><span class="gap-icon">👤</span>No centralised lead and contact database</div>
+        <div class="gap-item"><span class="gap-icon">📊</span>No structured sales pipeline or stages</div>
+        <div class="gap-item"><span class="gap-icon">📋</span>No project tracking across departments</div>
+        <div class="gap-item"><span class="gap-icon">📈</span>No unified reporting across CRM and HR</div>
+        <div class="gap-item"><span class="gap-icon">💬</span>WhatsApp, website and email not integrated</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">ℹ️</span><span class="ch-label">Key limitations</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="warn-row">Calling needs separate telephony provider (MyHub ~$5/user) — not built in</div>
+        <div class="warn-row">WhatsApp broadcasting needs separate WA API tool to integrate</div>
+        <div class="warn-row">Setup cost ₹40,000 one-time — highest among evaluated tools</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="feat-grid">
+      <div>
+        <div class="ft"><span class="ft-icon">👥</span><span class="ft-label">CRM and lead management</span></div>
+        <div class="fi"><span class="tick">✓</span>Multi-channel lead capture (web, WA, email, social)</div>
+        <div class="fi"><span class="tick">✓</span>Lead assignment automation</div>
+        <div class="fi"><span class="tick">✓</span>Duplicate lead detection</div>
+        <div class="fi"><span class="tick">✓</span>Custom sales stages and pipeline</div>
+        <div class="fi"><span class="tick">✓</span>Quotation and proposal management</div>
+        <div class="fi"><span class="tick">✓</span>Lead nurturing workflows and conversion tracking</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">📁</span><span class="ft-label">Project management</span></div>
+        <div class="fi"><span class="tick">✓</span>Project creation from won opportunities</div>
+        <div class="fi"><span class="tick">✓</span>Kanban, Gantt, list and calendar views</div>
+        <div class="fi"><span class="tick">✓</span>Milestone and timeline management</div>
+        <div class="fi"><span class="tick">✓</span>Drawing and design file storage</div>
+        <div class="fi"><span class="tick">✓</span>Real-time project tracking dashboard</div>
+        <div class="fi"><span class="tick">✓</span>Delay and overdue activity alerts</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">⚙️</span><span class="ft-label">Automation and workflow</span></div>
+        <div class="fi"><span class="tick">✓</span>Approval and reminder automation</div>
+        <div class="fi"><span class="tick">✓</span>Follow-up and task automation</div>
+        <div class="fi"><span class="tick">✓</span>Lead assignment automation</div>
+        <div class="fi"><span class="tick">✓</span>Workflow builder</div>
+        <div class="fi"><span class="tick">✓</span>Microsoft Copilot AI integration</div>
+        <div class="fi"><span class="cross">✗</span>No built-in AI content generation</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">👩‍💼</span><span class="ft-label">HRMS</span></div>
+        <div class="fi"><span class="tick">✓</span>Employee profile and document management</div>
+        <div class="fi"><span class="tick">✓</span>Attendance and leave management</div>
+        <div class="fi"><span class="tick">✓</span>Payroll and payslip processing</div>
+        <div class="fi"><span class="tick">✓</span>Recruitment and onboarding workflows</div>
+        <div class="fi"><span class="tick">✓</span>Performance appraisal and KPI tracking</div>
+        <div class="fi"><span class="tick">✓</span>Exit and separation management</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">💳</span><span class="ch-label">Pricing</span></div>
+      <div class="plan-list">
+        <div class="plan-row">
+          <div class="plan-name">🎁 Free plan</div>
+          <div class="plan-price">₹0</div>
+        </div>
+        <div class="plan-row rec">
+          <div class="plan-name">⭐ 100 users / month</div>
+          <div class="plan-price rec">₹9,590<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">👤 Per user</div>
+          <div class="plan-price">₹95.9<span class="per">/user/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">🔧 Setup (one-time)</div>
+          <div class="plan-price warn">₹40,000</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">📋</span><span class="ch-label">Demo notes</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="note-item"><div class="ndot"></div><div>Feature-based model — not per-user, scales cost-effectively</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Full CRM + HRMS + PM in one — no separate module costs</div></div>
+        <div class="note-item"><div class="ndot"></div><div>2–3 day setup — team takes care of implementation</div></div>
+        <div class="note-item"><div class="ndot"></div><div>SPOC: Ayush Rawat — dedicated account manager</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Data on AWS Cloud with signed security agreement</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="proc">
+  <div class="proc-hd">→ Process stages helped</div>
+  <div class="steps">
+    <div class="step"><div class="step-ic">🌐</div><div class="step-title">Multi-channel lead capture</div><div class="step-desc">Web, WA, email, social, ads</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🔀</div><div class="step-title">Auto assign and qualify</div><div class="step-desc">Routed by rules, duplicates removed</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">📊</div><div class="step-title">Pipeline and proposals</div><div class="step-desc">Quotations, stages, deal tracking</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">📁</div><div class="step-title">Project execution</div><div class="step-desc">Tasks, timelines, design files</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">👩‍💼</div><div class="step-title">HR and team ops</div><div class="step-desc">Attendance, payroll, appraisals</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">📈</div><div class="step-title">Unified reporting</div><div class="step-desc">CRM, project and HR dashboards</div></div>
+  </div>
+</div>
+
+<div class="footer">Prepared by iSpeak Corporate Services · 4D Retail Design Engagement</div>
+</div>
+</body>
+</html>

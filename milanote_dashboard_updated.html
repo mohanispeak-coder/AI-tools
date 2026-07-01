@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Milanote — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f5f0ee;color:#1c1b2e;font-size:13px;padding:20px}
+.page{max-width:980px;margin:0 auto}
+.hdr{background:#1c1b2e;padding:14px 22px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.hdr-left{display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;background:#f4623a;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px}
+.brand{font-size:17px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.brand-sub{font-size:11px;color:#fca994;margin-top:1px}
+.hdr-tags{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.htag{font-size:10px;font-weight:500;background:rgba(255,255,255,.1);color:#fdddd7;border:1px solid rgba(255,255,255,.15);padding:4px 10px;border-radius:20px}
+.htag.rec{background:#f4623a;color:#fff;border-color:#f4623a;font-weight:600}
+.main{display:grid;grid-template-columns:220px 1fr 210px;gap:10px;margin-bottom:10px}
+.card{background:#fff;border-radius:12px;border:1px solid #e8ddd8;overflow:hidden}
+.ch{padding:9px 14px;border-bottom:1px solid #f5f0ee;display:flex;align-items:center;gap:6px}
+.ch-icon{font-size:14px}
+.ch-label{font-size:10px;font-weight:600;color:#9a6b5a;text-transform:uppercase;letter-spacing:.09em}
+.cb{padding:10px 14px}
+.use-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #faf5f3;font-size:11.5px;color:#3d2c26;line-height:1.4}
+.use-item:last-child{border-bottom:none}
+.use-icon{font-size:13px;flex-shrink:0;margin-top:1px;color:#f4623a}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.ft{display:flex;align-items:center;gap:5px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #f5f0ee}
+.ft-icon{font-size:12px;color:#f4623a}
+.ft-label{font-size:10px;font-weight:600;color:#f4623a;text-transform:uppercase;letter-spacing:.07em}
+.fi{display:flex;align-items:flex-start;gap:6px;font-size:11.5px;color:#4a3830;margin-bottom:5px;line-height:1.35}
+.tick{color:#16a34a;font-weight:700;flex-shrink:0;font-size:13px}
+.cross{color:#dc2626;font-weight:700;flex-shrink:0;font-size:13px}
+.part{color:#d97706;font-weight:700;flex-shrink:0;font-size:13px}
+.plan-list{padding:4px 0}
+.plan-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid #faf5f3}
+.plan-row:last-child{border-bottom:none}
+.plan-row.rec{background:#fff3f0;border-left:2px solid #f4623a}
+.plan-name{font-size:12px;color:#4a3830}
+.plan-price{font-size:13px;font-weight:600;color:#1c1b2e}
+.plan-price.rec{color:#f4623a}
+.plan-price.free{color:#16a34a}
+.plan-price .per{font-size:10px;font-weight:400;color:#9ca3af}
+.note-item{display:flex;align-items:flex-start;gap:7px;padding:7px 0;border-bottom:1px solid #faf5f3;font-size:11.5px;color:#4a3830;line-height:1.4}
+.note-item:last-child{border-bottom:none}
+.ndot{width:5px;height:5px;border-radius:50%;background:#f4623a;margin-top:5px;flex-shrink:0}
+.warn-row{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:7px 10px;font-size:11px;color:#78350f;margin-bottom:6px;line-height:1.4}
+.warn-row:last-child{margin-bottom:0}
+.proc{background:#fff;border-radius:12px;border:1px solid #e8ddd8;padding:14px 18px}
+.proc-hd{font-size:10px;font-weight:600;color:#9a6b5a;text-transform:uppercase;letter-spacing:.09em;margin-bottom:14px}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+.step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px;position:relative}
+.step-ic{width:44px;height:44px;background:#fff3f0;border:1.5px solid #fca994;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 7px;font-size:20px}
+.step-title{font-size:11px;font-weight:600;color:#1c1b2e;margin-bottom:3px;line-height:1.3}
+.step-desc{font-size:10px;color:#9a6b5a;line-height:1.4}
+.arr{position:absolute;right:-8px;top:12px;font-size:16px;color:#fca994}
+.footer{text-align:center;font-size:10px;color:#9ca3af;margin-top:14px}
+@media(max-width:700px){.main{grid-template-columns:1fr}.steps{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">M</div>
+    <div>
+      <div class="brand">Milanote</div>
+      <div class="brand-sub">Visual moodboard and concept workspace &nbsp;·&nbsp; Moodboards, concept decks, design flow, project briefs</div>
+    </div>
+  </div>
+  <div class="hdr-tags">
+    <span class="htag">Web, Mac, Windows, Mobile</span>
+    <span class="htag">100+ templates</span>
+    <span class="htag">Onboarding 8/10</span>
+    <span class="htag rec">✓ Recommended for 4D</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">🎯</span><span class="ch-label">Use case for 4D</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="use-item"><span class="use-icon">🎨</span>Create moodboards and colour palettes for retail design concepts</div>
+        <div class="use-item"><span class="use-icon">📋</span>Build concept decks and design flow boards per project</div>
+        <div class="use-item"><span class="use-icon">🖥️</span>Present boards to clients in full-screen presentation mode</div>
+        <div class="use-item"><span class="use-icon">👥</span>Collaborate with design team in real time on shared boards</div>
+        <div class="use-item"><span class="use-icon">📐</span>Reuse board templates across retail store projects</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">⚠️</span><span class="ch-label">Key limitations</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="warn-row">No version history — cannot roll back to a previous board state</div>
+        <div class="warn-row">No view tracking — cannot see if client opened or viewed the board</div>
+        <div class="warn-row">Clients must log in to Milanote to leave comments (view-only is free)</div>
+        <div class="warn-row">No Adobe CC, Figma, or Google Drive direct integration</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="feat-grid">
+      <div>
+        <div class="ft"><span class="ft-icon">📋</span><span class="ft-label">Board creation</span></div>
+        <div class="fi"><span class="tick">✓</span>Create from scratch or 100+ pre-built templates</div>
+        <div class="fi"><span class="tick">✓</span>Add logo, fonts, colour palette, custom backgrounds</div>
+        <div class="fi"><span class="tick">✓</span>Images, videos, text, swatches, links, PDFs — all supported</div>
+        <div class="fi"><span class="tick">✓</span>Drag-drop from desktop or web clipper (Chrome, Safari, Firefox)</div>
+        <div class="fi"><span class="tick">✓</span>Save any board as a custom template and reuse across projects</div>
+        <div class="fi"><span class="tick">✓</span>Link boards together to create a concept flow sequence</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">🖼️</span><span class="ft-label">Asset management</span></div>
+        <div class="fi"><span class="tick">✓</span>Drag-drop, paste from clipboard, or web clipper extension</div>
+        <div class="fi"><span class="tick">✓</span>Built-in Pexels library — 3M+ stock photos searchable in-board</div>
+        <div class="fi"><span class="tick">✓</span>Boards nested inside boards as folders</div>
+        <div class="fi"><span class="tick">✓</span>Supports PNG, JPG, GIF, PDF, SVG, MP4</div>
+        <div class="fi"><span class="tick">✓</span>Free: 100 items + 10 uploads &nbsp;|&nbsp; Paid: Unlimited</div>
+        <div class="fi"><span class="part">⚠</span>Boards with 500+ cards may slow — keep under 300</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">👥</span><span class="ft-label">Collaboration</span></div>
+        <div class="fi"><span class="tick">✓</span>Multiple designers on same board simultaneously</div>
+        <div class="fi"><span class="tick">✓</span>Role-based permissions — viewer, commenter, editor, admin</div>
+        <div class="fi"><span class="tick">✓</span>Comments and annotations on specific cards</div>
+        <div class="fi"><span class="tick">✓</span>Tag team members on specific elements for feedback</div>
+        <div class="fi"><span class="cross">✗</span>No version history or rollback</div>
+        <div class="fi"><span class="cross">✗</span>No activity log — who edited what and when</div>
+      </div>
+      <div>
+        <div class="ft"><span class="ft-icon">📤</span><span class="ft-label">Client sharing and export</span></div>
+        <div class="fi"><span class="tick">✓</span>Share via link or PDF for client presentations</div>
+        <div class="fi"><span class="tick">✓</span>Clients can view without a Milanote account</div>
+        <div class="fi"><span class="tick">✓</span>Full-screen presentation mode for client meetings</div>
+        <div class="fi"><span class="tick">✓</span>Control client access — view only or comment only</div>
+        <div class="fi"><span class="tick">✓</span>Export as PDF or JPG/PNG — high resolution</div>
+        <div class="fi"><span class="tick">✓</span>Paid plans remove Milanote watermark on exports</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card">
+      <div class="ch"><span class="ch-icon">💳</span><span class="ch-label">Pricing</span></div>
+      <div class="plan-list">
+        <div class="plan-row">
+          <div class="plan-name">🎁 Free — no time limit</div>
+          <div class="plan-price free">₹0<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">👤 Pro · billed monthly</div>
+          <div class="plan-price">₹1,184<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row rec">
+          <div class="plan-name">⭐ Pro · billed annually</div>
+          <div class="plan-price rec">₹947<span class="per">/mo</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">👥 Team up to 10 · annual</div>
+          <div class="plan-price">₹4,642<span class="per">/mo · save 50%</span></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-name">🔧 Setup cost</div>
+          <div class="plan-price free">Nil</div>
+        </div>
+      </div>
+      <div style="padding:7px 14px;font-size:10px;color:#9ca3af;border-top:1px solid #faf5f3">@ $1 = ₹94.73 &nbsp;·&nbsp; Pro: $9.99/mo annual or $12.50 monthly &nbsp;·&nbsp; Team: $49/mo for 10 people (annual)</div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ch-icon">📋</span><span class="ch-label">Key notes</span></div>
+      <div class="cb" style="padding-top:4px;padding-bottom:4px">
+        <div class="note-item"><div class="ndot"></div><div>Onboarding ease rated 8/10 — design team can adopt with minimal training</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Pexels built-in — 3M+ stock photos searchable directly inside any board</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Integrates with Notion — Milanote boards embeddable in Notion pages</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Zapier integration available for workflow automation</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Support via chat and email — no phone support</div></div>
+        <div class="note-item"><div class="ndot"></div><div>Free plan exports include watermark — paid plan removes it</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="proc">
+  <div class="proc-hd">→ How 4D's design team would use Milanote</div>
+  <div class="steps">
+    <div class="step"><div class="step-ic">📐</div><div class="step-title">Start from template</div><div class="step-desc">Pick from 100+ moodboard or concept deck templates</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🖼️</div><div class="step-title">Add images and assets</div><div class="step-desc">Drag-drop, web clip, or search Pexels directly in-board</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">👥</div><div class="step-title">Collaborate with team</div><div class="step-desc">Designers edit together; comment on specific cards</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🔗</div><div class="step-title">Link concept boards</div><div class="step-desc">Connect boards to build a full concept flow or narrative</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">🖥️</div><div class="step-title">Present to client</div><div class="step-desc">Full-screen mode or share PDF/link — no login needed to view</div><span class="arr">›</span></div>
+    <div class="step"><div class="step-ic">📋</div><div class="step-title">Save as template</div><div class="step-desc">Duplicate board as template for the next retail project</div></div>
+  </div>
+</div>
+
+<div class="footer">Prepared by iSpeak Corporate Services · 4D Retail Design Engagement</div>
+</div>
+</body>
+</html>
