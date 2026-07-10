@@ -1,0 +1,119 @@
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes cellIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes chipIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+  @keyframes pulseDot { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.4); } }
+  .cell { animation: cellIn 0.4s ease-out backwards; }
+  .chip { animation: chipIn 0.3s ease-out backwards; }
+}
+.chip { transition: transform 0.15s ease; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; border: none; position: relative; }
+.chip[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2A2A2A;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 400;
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 10;
+}
+.chip[data-tooltip]::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #2A2A2A;
+  margin-bottom: -2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 10;
+}
+.chip[data-tooltip]:hover::after,
+.chip[data-tooltip]:hover::before { opacity: 1; }
+.chip:hover { transform: scale(1.08); }
+.chip:active { transform: scale(0.96); }
+.cell { transition: background 0.2s ease; }
+.tgl { position: relative; width: 32px; height: 18px; background: var(--border-strong); border-radius: 9px; display: inline-block; transition: background 0.2s; cursor: pointer; flex-shrink: 0; }
+.tgl input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.tgl-knob { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; background: #fff; border-radius: 50%; transition: transform 0.2s; pointer-events: none; }
+.tgl:has(input:checked) { background: var(--text-accent); }
+.tgl:has(input:checked) .tgl-knob { transform: translateX(14px); }
+</style>
+<div style="max-width: 720px;">
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px; margin-bottom: 16px; font-size: 12px; color: var(--text-secondary);">
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #FFFFFF; border: 1.5px solid #E46715;"></span>Skill-only gap</span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #E46715; border: 1px solid #E46715;"></span>Broad / behavioral gap</span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #8A3D0E; border: 1px solid #8A3D0E;"></span>Severe — attitude / perception gap</span>
+  </div>
+
+  <div style="display: flex; align-items: center; margin-bottom: 4px; padding-left: 100px;">
+    <span style="font-size: 12px; color: var(--text-muted);">Performance</span>
+    <span style="flex: 1; height: 0.5px; background: var(--border-strong); margin: 0 8px;"></span>
+    <i class="ti ti-arrow-right" style="font-size: 14px; color: var(--text-muted);" aria-hidden="true"></i>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 100px repeat(3, 1fr); grid-template-rows: 32px repeat(3, minmax(118px, auto)); gap: 8px;">
+    <div></div>
+    <div style="text-align: center; font-size: 12px; color: var(--text-secondary); font-weight: 500; align-self: end;">Low</div>
+    <div style="text-align: center; font-size: 12px; color: var(--text-secondary); font-weight: 500; align-self: end;">Medium</div>
+    <div style="text-align: center; font-size: 12px; color: var(--text-secondary); font-weight: 500; align-self: end;">High</div>
+
+    <div style="display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; transform: rotate(180deg); font-size: 12px; color: var(--text-secondary); font-weight: 500;">High potential</div>
+    <div class="cell" style="animation-delay: 0.02s; background: #F9DCC0; border-radius: 12px; padding: 12px;"><p style="font-size: 13px; font-weight: 500; margin: 0; color: #8A3D0E;">Enigma</p></div>
+    <div class="cell" style="animation-delay: 0.06s; background: #FBE0C8; border-radius: 12px; padding: 12px;">
+      <p style="font-size: 13px; font-weight: 500; margin: 0 0 8px; color: #7A3A0A;">Future star</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <button class="chip" style="animation-delay: 0.10s; background: #E46715; color: #FFFFFF; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Broad / behavioral gap" onclick="sendPrompt('Tell me more about Dinesh P\'s readiness profile')">Dinesh P</button>
+        <button class="chip" style="animation-delay: 0.14s; background: #E46715; color: #FFFFFF; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Broad / behavioral gap" onclick="sendPrompt('Tell me more about Vishnu K\'s readiness profile')">Vishnu K</button>
+        <button class="chip" style="animation-delay: 0.18s; background: #FFFFFF; color: #8A3D0E; border: 1.5px solid #E46715; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Skill-only gap" onclick="sendPrompt('Tell me more about Kavitha Andrews\' readiness profile')">Kavitha Andrews</button>
+        <button class="chip" style="animation-delay: 0.22s; background: #FFFFFF; color: #8A3D0E; border: 1.5px solid #E46715; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Skill-only gap" onclick="sendPrompt('Tell me more about Rizvan SA\'s readiness profile')">Rizvan SA</button>
+      </div>
+    </div>
+    <div class="cell" style="animation-delay: 0.10s; background: #FBE0C8; border-radius: 12px; padding: 12px; border: 2px solid #E46715;"><p style="font-size: 13px; font-weight: 500; margin: 0; color: #7A3A0A;">Star</p></div>
+
+    <div style="display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; transform: rotate(180deg); font-size: 12px; color: var(--text-secondary); font-weight: 500;">Medium potential</div>
+    <div class="cell" style="animation-delay: 0.14s; background: #F9DCC0; border-radius: 12px; padding: 12px;"><p style="font-size: 13px; font-weight: 500; margin: 0; color: #8A3D0E;">Inconsistent player</p></div>
+    <div class="cell" style="animation-delay: 0.18s; background: #F9DCC0; border-radius: 12px; padding: 12px;">
+      <p style="font-size: 13px; font-weight: 500; margin: 0 0 8px; color: #8A3D0E;">Core player</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <button class="chip" style="animation-delay: 0.24s; background: #E46715; color: #FFFFFF; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Broad / behavioral gap" onclick="sendPrompt('Tell me more about Ashwin Sharma\'s readiness profile')">Ashwin Sharma</button>
+        <button class="chip" style="animation-delay: 0.28s; background: #8A3D0E; color: #FFFFFF; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Severe — attitude / perception gap" onclick="sendPrompt('Tell me more about Mona BC\'s readiness profile')">Mona BC</button>
+        <button class="chip" style="animation-delay: 0.32s; background: #8A3D0E; color: #FFFFFF; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Severe — attitude / perception gap" onclick="sendPrompt('Tell me more about Mujeeb Pasha\'s readiness profile')">Mujeeb Pasha</button>
+      </div>
+    </div>
+    <div class="cell" style="animation-delay: 0.22s; background: #FBE0C8; border-radius: 12px; padding: 12px;">
+      <p style="font-size: 13px; font-weight: 500; margin: 0 0 8px; color: #7A3A0A;">High performer</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <button class="chip" style="animation-delay: 0.36s; background: #FFFFFF; color: #8A3D0E; border: 1.5px solid #E46715; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Skill-only gap" onclick="sendPrompt('Tell me more about Radhakrishna Deraje\'s readiness profile')">Radhakrishna Deraje</button>
+        <button class="chip" style="animation-delay: 0.40s; background: #E46715; color: #FFFFFF; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Broad / behavioral gap" onclick="sendPrompt('Tell me more about Rashmi\'s readiness profile')">Rashmi</button>
+        <button class="chip" style="animation-delay: 0.44s; background: #FFFFFF; color: #8A3D0E; border: 1.5px solid #E46715; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Skill-only gap" onclick="sendPrompt('Tell me more about Rushith Somanna\'s readiness profile')">Rushith Somanna</button>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; transform: rotate(180deg); font-size: 12px; color: var(--text-secondary); font-weight: 500;">Low potential</div>
+    <div class="cell" style="animation-delay: 0.26s; background: #F2A876; border-radius: 12px; padding: 12px;"><p style="font-size: 13px; font-weight: 500; margin: 0; color: #7A2E00;">Risk</p></div>
+    <div class="cell" style="animation-delay: 0.30s; background: #F9DCC0; border-radius: 12px; padding: 12px;">
+      <p style="font-size: 13px; font-weight: 500; margin: 0 0 8px; color: #8A3D0E;">Average performer</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <button class="chip" style="animation-delay: 0.48s; background: #E46715; color: #FFFFFF; font-size: 12px; padding: 3px 10px; border-radius: 12px;" data-tooltip="Broad / behavioral gap" onclick="sendPrompt('Tell me more about Vijay Anand\'s readiness profile')">Vijay Anand</button>
+      </div>
+    </div>
+    <div class="cell" style="animation-delay: 0.34s; background: #F9DCC0; border-radius: 12px; padding: 12px;"><p style="font-size: 13px; font-weight: 500; margin: 0; color: #8A3D0E;">Trusted professional</p></div>
+  </div>
+
+  <div style="margin-top: 10px; padding-left: 100px;">
+    <span style="font-size: 12px; color: var(--text-muted);">Potential grows upward ↑</span>
+  </div>
+
+</div>
